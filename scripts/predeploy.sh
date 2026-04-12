@@ -6,13 +6,13 @@ echo "===== Update and install dependencies ====="
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y nginx certbot python3-certbot-nginx git nodejs npm
 
-# Clone the repo (if not already cloned)
-# git clone <YOUR_REPO_URL> /var/www/sigmrbyte-webapp
-# cd /var/www/sigmrbyte-webapp
+echo "===== Clone the repo (if not already cloned) ====="
+git clone git@github.com:ienebuse/sigmrbyte-webapp.git /var/www/sigmrbyte-webapp || true
+cd /var/www/sigmrbyte-webapp
 
 echo "===== Build frontend ====="
 cd frontend
-npm install
+npm install 20
 npm run build
 cd ..
 
