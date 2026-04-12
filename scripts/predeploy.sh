@@ -12,11 +12,18 @@ cd /var/www/sigmrbyte-webapp
 
 echo "===== Build frontend ====="
 cd frontend
-npm install 20
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install 20
+nvm use 20
 npm run build
 cd ..
 
 echo "===== Set up Nginx config ====="
+if grep -q '^user' nginx/nginx.conf; then
+	echo "ERROR: nginx/nginx.conf contains a 'user' directive. Only server blocks are allowed in site configs. Please remove it."
+	exit 1
+fi
 sudo cp nginx/nginx.conf /etc/nginx/sites-available/sigmrbyte
 sudo ln -sf /etc/nginx/sites-available/sigmrbyte /etc/nginx/sites-enabled/sigmrbyte
 sudo nginx -t
