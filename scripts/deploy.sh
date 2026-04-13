@@ -2,6 +2,8 @@
 # Deployment script for updating the webapp after changes
 set -e
 
+WEB_APP_DIR="/var/www/sigmrbyte-webapp"
+
 # Pull latest changes
 git pull
 
@@ -12,7 +14,7 @@ source ~/.bashrc
 nvm install 20
 nvm use 20
 npm run build
-cd ..
+cd "$WEB_APP_DIR"
 
 # Reload Nginx (if config changed)
 sudo nginx -t && sudo systemctl reload nginx

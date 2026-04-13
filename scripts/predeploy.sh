@@ -2,13 +2,15 @@
 # Predeployment script for initial server setup
 set -e
 
+WEB_APP_DIR="/var/www/sigmrbyte-webapp"
+
 echo "===== Update and install dependencies ====="
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y nginx certbot python3-certbot-nginx git nodejs npm
 
 echo "===== Clone the repo (if not already cloned) ====="
-git clone git@github.com:ienebuse/sigmrbyte-webapp.git /var/www/sigmrbyte-webapp || true
-cd /var/www/sigmrbyte-webapp
+git clone git@github.com:ienebuse/sigmrbyte-webapp.git "$WEB_APP_DIR" || true
+cd "$WEB_APP_DIR"
 
 echo "===== Build frontend ====="
 cd frontend
@@ -17,7 +19,7 @@ source ~/.bashrc
 nvm install 20
 nvm use 20
 npm run build
-cd ..
+cd "$WEB_APP_DIR"
 
 echo "===== Set up Nginx config ====="
 if grep -q '^user' nginx/nginx.conf; then
