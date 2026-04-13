@@ -7,6 +7,8 @@ WEB_APP_DIR="/var/www/sigmrbyte-webapp"
 # Pull latest changes
 git pull
 
+cd "$WEB_APP_DIR"
+
 # Build frontend
 cd frontend
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
