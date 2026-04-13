@@ -24,10 +24,11 @@ if grep -q '^user' nginx/nginx.conf; then
 	echo "ERROR: nginx/nginx.conf contains a 'user' directive. Only server blocks are allowed in site configs. Please remove it."
 	exit 1
 fi
+
 sudo cp nginx/nginx.conf /etc/nginx/sites-available/sigmrbyte
 sudo ln -sf /etc/nginx/sites-available/sigmrbyte /etc/nginx/sites-enabled/sigmrbyte
 sudo nginx -t
-sudo systemctl reload nginx
+sudo systemctl restart nginx
 
 # Obtain SSL certificate (replace with your domain)
 sudo certbot --nginx -d sigmrbyte.com -d www.sigmrbyte.com --non-interactive --agree-tos -m your@email.com
